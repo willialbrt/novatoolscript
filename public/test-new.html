@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Pump.fun Bundle Tester</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background: #007cba;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #005a87;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .logs {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .small-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Clean Pump.fun Bundle Tester</h1>
+        
+        <form id="bundleForm">
+            <div class="form-group">
+                <label for="devPrivateKey">Dev Wallet Private Key:</label>
+                <textarea id="devPrivateKey" rows="3" required placeholder="Examples:
+5Kj8p2qZ... (Base58 format)
+[123,45,67,89,...] (JSON array format)"></textarea>
+                <div class="small-text">
+                    <strong>Supported formats:</strong><br>
+                    • Base58 string (from CLI tools)<br>
+                    • JSON array (from Phantom/Solflare export)<br>
+                    • Both 32-byte and 64-byte keys supported
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="createSolAmount">Initial Buy Amount (SOL):</label>
+                <input type="number" id="createSolAmount" step="0.001" value="0.01">
+                <div class="small-text">Amount of SOL to spend on initial token purchase (dev wallet)</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="tokenName">Token Name:</label>
+                <input type="text" id="tokenName" value="Test Token" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="tokenSymbol">Token Symbol:</label>
+                <input type="text" id="tokenSymbol" value="TEST" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="tokenDesc">Token Description:</label>
+                <textarea id="tokenDesc">This is a test token created with the clean bundle system.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="tokenImage">Token Image:</label>
+                <input type="file" id="tokenImage" accept="image/*" required>
+                <div class="small-text">Upload an image for your token (PNG, JPG, etc.)</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="buyers">Buyer Wallets (Format: privateKey,amount):</label>
+                <textarea id="buyers" rows="4" placeholder="Examples:
+5Kj8p2qZ...,0.1
+[123,45,67,...],0.2"></textarea>
+                <div class="small-text">
+                    One buyer per line. Format: privateKey,solAmount<br>
+                    Same key formats as dev wallet (Base58 or JSON array)
+                </div>
+            </div>
+            
+            <button type="submit" id="submitBtn">Create Token & Submit Bundle</button>
+        </form>
+        
+        <div id="logs" class="logs" style="display: none;"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('bundleForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const logsDiv = document.getElementById('logs');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+            logsDiv.style.display = 'block';
+            logsDiv.textContent = 'Starting bundle creation...\n';
+
+            try {
+                const formData = new FormData();
+                formData.append('devPrivateKey', document.getElementById('devPrivateKey').value);
+                formData.append('createSolAmount', document.getElementById('createSolAmount').value);
+                formData.append('tokenName', document.getElementById('tokenName').value);
+                formData.append('tokenSymbol', document.getElementById('tokenSymbol').value);
+                formData.append('tokenDesc', document.getElementById('tokenDesc').value);
+                formData.append('buyers', document.getElementById('buyers').value);
+                formData.append('file', document.getElementById('tokenImage').files[0]);
+
+                const response = await fetch('/api/createAndBundle', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    logsDiv.innerHTML = result.logs.join('\n') + '\n\n<span class="success">✅ SUCCESS!</span>\n';
+                    logsDiv.innerHTML += `Bundle ID: ${result.bundleId}\n`;
+                    logsDiv.innerHTML += `Mint Address: ${result.mintAddress}\n`;
+                    logsDiv.innerHTML += `Metadata URI: ${result.metadataUri}\n`;
+                } else {
+                    logsDiv.innerHTML = (result.logs || []).join('\n') + '\n\n<span class="error">❌ ERROR: ' + result.error + '</span>\n';
+                }
+
+            } catch (error) {
+                logsDiv.innerHTML += '\n<span class="error">❌ NETWORK ERROR: ' + error.message + '</span>\n';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Create Token & Submit Bundle';
+            }
+        });
+    </script>
+</body>
+</html>

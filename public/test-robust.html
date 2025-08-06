@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robust Pump.fun Bundle Tester</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .features {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .features h3 {
+            color: #2d5a2d;
+            margin-top: 0;
+        }
+        .features ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .features li {
+            color: #2d5a2d;
+            margin-bottom: 5px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background: #007cba;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #005a87;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .logs {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        .small-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .result-box {
+            background: #e8f5e8;
+            border: 2px solid #28a745;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .result-box h3 {
+            color: #2d5a2d;
+            margin-top: 0;
+        }
+        .result-box a {
+            color: #007cba;
+            text-decoration: none;
+        }
+        .result-box a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Robust Pump.fun Bundle Tester</h1>
+            <p>Enhanced implementation with better inclusion rates</p>
+        </div>
+        
+        <div class="features">
+            <h3>🔧 Enhanced Features:</h3>
+            <ul>
+                <li>✅ Multiple RPC endpoint failover (8+ endpoints)</li>
+                <li>✅ Rate limit detection and cooldown management</li>
+                <li>✅ Higher priority fees (0.05 SOL) for better inclusion</li>
+                <li>✅ Competitive Jito tips (0.01 SOL) for auction priority</li>
+                <li>✅ Bundle status monitoring</li>
+                <li>✅ Enhanced error handling and retries</li>
+                <li>✅ Real-world tested transaction parameters</li>
+            </ul>
+        </div>
+        
+        <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; padding: 15px; margin-bottom: 20px;">
+            <h4 style="color: #856404; margin-top: 0;">⚠️ RPC Rate Limit Fixes Applied</h4>
+            <p style="color: #856404; margin-bottom: 5px;">This version includes:</p>
+            <ul style="color: #856404; margin: 0; padding-left: 20px;">
+                <li>Automatic RPC switching when rate limited</li>
+                <li>1-minute cooldown for rate limited endpoints</li>
+                <li>Enhanced blockhash retry logic</li>
+                <li>Multiple free RPC endpoints</li>
+            </ul>
+        </div>
+        
+        <form id="bundleForm">
+            <div class="form-group">
+                <label for="devPrivateKey">Dev Wallet Private Key:</label>
+                <textarea id="devPrivateKey" rows="3" required placeholder="Examples:
+5Kj8p2qZ... (Base58 format)
+[123,45,67,89,...] (JSON array format)"></textarea>
+                <div class="small-text">
+                    <strong>Required Balance:</strong> ~0.4+ SOL (includes fees + tip + rent buffers)<br>
+                    <strong>Supported formats:</strong> Base58 string or JSON array
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="createSolAmount">Initial Buy Amount (SOL):</label>
+                <input type="number" id="createSolAmount" step="0.001" value="0.01" min="0">
+                <div class="small-text">Amount of SOL for dev wallet initial buy (0 = create only)</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="tokenName">Token Name:</label>
+                <input type="text" id="tokenName" value="Robust Test Token" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="tokenSymbol">Token Symbol:</label>
+                <input type="text" id="tokenSymbol" value="ROBUST" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="tokenDesc">Token Description:</label>
+                <textarea id="tokenDesc">This token was created using the robust Jito bundle implementation with enhanced inclusion rates.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="tokenImage">Token Image:</label>
+                <input type="file" id="tokenImage" accept="image/*" required>
+                <div class="small-text">Upload an image for your token (PNG, JPG, etc.)</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="buyers">Buyer Wallets (Format: privateKey,amount):</label>
+                <textarea id="buyers" rows="4" placeholder="Examples:
+5Kj8p2qZ...,0.1
+[123,45,67,...],0.2"></textarea>
+                <div class="small-text">
+                    One buyer per line. Format: privateKey,solAmount<br>
+                    Each buyer needs balance for their amount + ~0.25 SOL fees + rent
+                </div>
+            </div>
+            
+            <button type="submit" id="submitBtn">🚀 Create Token & Submit Bundle</button>
+        </form>
+        
+        <div id="logs" class="logs" style="display: none;"></div>
+        <div id="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('bundleForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const logsDiv = document.getElementById('logs');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '🔄 Processing...';
+            logsDiv.style.display = 'block';
+            logsDiv.textContent = 'Starting robust bundle creation...\n';
+            resultDiv.style.display = 'none';
+
+            try {
+                const formData = new FormData();
+                formData.append('devPrivateKey', document.getElementById('devPrivateKey').value);
+                formData.append('createSolAmount', document.getElementById('createSolAmount').value);
+                formData.append('tokenName', document.getElementById('tokenName').value);
+                formData.append('tokenSymbol', document.getElementById('tokenSymbol').value);
+                formData.append('tokenDesc', document.getElementById('tokenDesc').value);
+                formData.append('buyers', document.getElementById('buyers').value);
+                formData.append('file', document.getElementById('tokenImage').files[0]);
+
+                const response = await fetch('http://localhost:3001/api/createAndBundle', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    logsDiv.innerHTML = result.logs.join('\n') + '\n\n<span class="success">✅ SUCCESS!</span>\n';
+                    
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <h3>🎉 Bundle Created Successfully!</h3>
+                            <p><strong>Bundle ID:</strong> ${result.bundleId}</p>
+                            <p><strong>Mint Address:</strong> ${result.mintAddress}</p>
+                            <p><strong>Metadata URI:</strong> <a href="${result.metadataUri}" target="_blank">${result.metadataUri}</a></p>
+                            <p><strong>Jito Explorer:</strong> <a href="${result.explorerUrl}" target="_blank">${result.explorerUrl}</a></p>
+                            <p><strong>Solana Explorer:</strong> <a href="https://solscan.io/token/${result.mintAddress}" target="_blank">View on Solscan</a></p>
+                            ${result.confirmed ? '<p class="success">✅ Bundle Confirmed</p>' : '<p class="warning">⏳ Bundle Processing</p>'}
+                        </div>
+                    `;
+                    resultDiv.style.display = 'block';
+                } else {
+                    logsDiv.innerHTML = (result.logs || []).join('\n') + '\n\n<span class="error">❌ ERROR: ' + result.error + '</span>\n';
+                }
+
+            } catch (error) {
+                logsDiv.innerHTML += '\n<span class="error">❌ NETWORK ERROR: ' + error.message + '</span>\n';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Create Token & Submit Bundle';
+            }
+        });
+    </script>
+</body>
+</html>
