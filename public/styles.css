@@ -1,0 +1,44 @@
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar .nav-pills .nav-link {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.sidebar .nav-pills .nav-link.active {
+  background-color: #0d6efd;
+  color: white;
+  font-weight: 500;
+}
+
+.sticky-top {
+  top: 20px;
+}
+
+/* Keep your existing styles */
+#individualSellWallets {
+  max-height: 500px; 
+  overflow-y: auto; 
+  border: 1px solid #dee2e6; 
+  border-radius: 4px; 
+  padding: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    height: auto;
+    position: static;
+  }
+  
+  .row {
+    flex-direction: column-reverse;
+  }
+}
