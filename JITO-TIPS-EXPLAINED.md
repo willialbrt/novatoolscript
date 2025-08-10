@@ -71,10 +71,10 @@ Example bundle:
 
 ## Why This Works
 
-- ✅ **Bundle Eligibility**: Tip transaction makes bundle valid for Jito auction
-- ✅ **Write Lock**: Tip transaction "write locks" the tip account as required
-- ✅ **Validator Incentive**: Validators earn the tip, so they prioritize your bundle
-- ✅ **Atomicity**: All transactions succeed or fail together
+-  **Bundle Eligibility**: Tip transaction makes bundle valid for Jito auction
+-  **Write Lock**: Tip transaction "write locks" the tip account as required
+-  **Validator Incentive**: Validators earn the tip, so they prioritize your bundle
+-  **Atomicity**: All transactions succeed or fail together
 
 ## No Pre-Creation Needed
 
