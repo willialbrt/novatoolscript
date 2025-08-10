@@ -1,4 +1,4 @@
-# Jito Tips Explained
+# Jito Tips
 
 ## What are Jito Tips?
 
