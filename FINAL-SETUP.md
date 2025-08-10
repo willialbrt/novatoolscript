@@ -10,7 +10,7 @@ Your robust Pump.fun Jito bundler is ready with all fixes applied:
 - **Enhanced fee calculations** - Real-world tested parameters
 - **Bundle monitoring** - Track submission status
 
-## 🚀Quick Start
+## Quick Start
 
 ### 1. Start the Server
 ```bash
