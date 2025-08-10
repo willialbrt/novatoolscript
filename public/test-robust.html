@@ -135,20 +135,20 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚀 Robust Pump.fun Bundle Tester</h1>
+            <h1> Robust Pump.fun Bundle Tester</h1>
             <p>Enhanced implementation with better inclusion rates</p>
         </div>
         
         <div class="features">
-            <h3>🔧 Enhanced Features:</h3>
+            <h3> Enhanced Features:</h3>
             <ul>
-                <li>✅ Multiple RPC endpoint failover (8+ endpoints)</li>
-                <li>✅ Rate limit detection and cooldown management</li>
-                <li>✅ Higher priority fees (0.05 SOL) for better inclusion</li>
-                <li>✅ Competitive Jito tips (0.01 SOL) for auction priority</li>
-                <li>✅ Bundle status monitoring</li>
-                <li>✅ Enhanced error handling and retries</li>
-                <li>✅ Real-world tested transaction parameters</li>
+                <li> Multiple RPC endpoint failover (8+ endpoints)</li>
+                <li> Rate limit detection and cooldown management</li>
+                <li> Higher priority fees (0.05 SOL) for better inclusion</li>
+                <li> Competitive Jito tips (0.01 SOL) for auction priority</li>
+                <li> Bundle status monitoring</li>
+                <li> Enhanced error handling and retries</li>
+                <li> Real-world tested transaction parameters</li>
             </ul>
         </div>
         
@@ -230,7 +230,7 @@
             e.preventDefault();
             
             submitBtn.disabled = true;
-            submitBtn.textContent = '🔄 Processing...';
+            submitBtn.textContent = ' Processing...';
             logsDiv.style.display = 'block';
             logsDiv.textContent = 'Starting robust bundle creation...\n';
             resultDiv.style.display = 'none';
@@ -253,29 +253,29 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    logsDiv.innerHTML = result.logs.join('\n') + '\n\n<span class="success">✅ SUCCESS!</span>\n';
+                    logsDiv.innerHTML = result.logs.join('\n') + '\n\n<span class="success"> SUCCESS!</span>\n';
                     
                     resultDiv.innerHTML = `
                         <div class="result-box">
-                            <h3>🎉 Bundle Created Successfully!</h3>
+                            <h3> Bundle Created Successfully!</h3>
                             <p><strong>Bundle ID:</strong> ${result.bundleId}</p>
                             <p><strong>Mint Address:</strong> ${result.mintAddress}</p>
                             <p><strong>Metadata URI:</strong> <a href="${result.metadataUri}" target="_blank">${result.metadataUri}</a></p>
                             <p><strong>Jito Explorer:</strong> <a href="${result.explorerUrl}" target="_blank">${result.explorerUrl}</a></p>
                             <p><strong>Solana Explorer:</strong> <a href="https://solscan.io/token/${result.mintAddress}" target="_blank">View on Solscan</a></p>
-                            ${result.confirmed ? '<p class="success">✅ Bundle Confirmed</p>' : '<p class="warning">⏳ Bundle Processing</p>'}
+                            ${result.confirmed ? '<p class="success"> Bundle Confirmed</p>' : '<p class="warning"> Bundle Processing</p>'}
                         </div>
                     `;
                     resultDiv.style.display = 'block';
                 } else {
-                    logsDiv.innerHTML = (result.logs || []).join('\n') + '\n\n<span class="error">❌ ERROR: ' + result.error + '</span>\n';
+                    logsDiv.innerHTML = (result.logs || []).join('\n') + '\n\n<span class="error"> ERROR: ' + result.error + '</span>\n';
                 }
 
             } catch (error) {
-                logsDiv.innerHTML += '\n<span class="error">❌ NETWORK ERROR: ' + error.message + '</span>\n';
+                logsDiv.innerHTML += '\n<span class="error"> NETWORK ERROR: ' + error.message + '</span>\n';
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = '🚀 Create Token & Submit Bundle';
+                submitBtn.textContent = ' Create Token & Submit Bundle';
             }
         });
     </script>
