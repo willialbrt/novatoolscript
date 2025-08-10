@@ -1,4 +1,4 @@
-# Final Setup Guide - Working Pump.fun Jito Bundler
+# Final Setup Jito Bundler
 
 ## Current Status
 
@@ -14,13 +14,13 @@ Your robust Pump.fun Jito bundler is ready with all fixes applied:
 
 ### 1. Start the Server
 ```bash
-cd /Users/a1/Documents/claudepump/pumpbundle-modified
-node server-robust.js
+cd /Users/a1/Documents/claudepump/NovaToolsScript/modified
+node server-test-2.js
 ```
 
 ### 2. Open the Interface
 ```
-http://localhost:3001/test-robust.html
+http://localhost:9090/test-2.html
 ```
 
 ### 3. Required Wallet Balances
@@ -30,12 +30,12 @@ http://localhost:3001/test-robust.html
 ## Files Created
 
 ### Core Server Files
-- `server-robust.js` - Main robust implementation
+- `server-test-2.js` - Main robust implementation
 - `test-rpc.js` - RPC endpoint tester
 - `test-key.js` - Private key format tester
 
 ### Web Interface
-- `public/test-robust.html` - Enhanced testing interface
+- `public/test-2.html` - Enhanced testing interface
 
 ### Documentation
 - `RPC-RATE-LIMIT-FIXES.md` - Rate limiting solutions
@@ -120,7 +120,7 @@ node test-rpc.js
 node test-key.js "your-private-key-here"
 
 # Check server health
-curl http://localhost:3001/health
+curl http://localhost:9090/health
 ```
 
 
@@ -138,4 +138,4 @@ When everything works correctly, you'll see:
 
 Your Pump.fun Jito bundler is now ready for production use. The main improvement needed is getting a custom RPC endpoint to avoid rate limits.
 
-**Start with**: `node server-robust.js` and `http://localhost:3001/test-robust.html`
+**Start with**: `node server-robust.js` and `http://localhost:9090/test-2.html`
