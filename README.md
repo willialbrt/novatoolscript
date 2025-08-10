@@ -15,9 +15,10 @@
 2. Open VSCode, select "File">"Open Folder" and select Novatoolscripts.
 3. Select "Terminal" on the top navbar and select "New Terminal."
 4. Type "npm install" in terminal.
-5. Run the server with "node server.js". Make sure "Server listening on port 3000" is displayed in the terminal console.
+5. Run the server with "node server-current-idl.js". Make sure "Server listening on port 3000" is displayed in the terminal console.
 6. Open browser of your choice and type "http://localhost:3000".
 7. Enter details and bs58 private keys (same format as Phantom export).
 8. Launch and bundle. Console will monitor for errors and post transaction links.
+
 
 
