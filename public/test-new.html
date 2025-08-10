@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean Pump.fun Bundle Tester</title>
+    <title>Pump.fun Bundle Tester</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -182,12 +182,12 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    logsDiv.innerHTML = result.logs.join('\n') + '\n\n<span class="success">✅ SUCCESS!</span>\n';
+                    logsDiv.innerHTML = result.logs.join('\n') + '\n\n<span class="success"> SUCCESS!</span>\n';
                     logsDiv.innerHTML += `Bundle ID: ${result.bundleId}\n`;
                     logsDiv.innerHTML += `Mint Address: ${result.mintAddress}\n`;
                     logsDiv.innerHTML += `Metadata URI: ${result.metadataUri}\n`;
                 } else {
-                    logsDiv.innerHTML = (result.logs || []).join('\n') + '\n\n<span class="error">❌ ERROR: ' + result.error + '</span>\n';
+                    logsDiv.innerHTML = (result.logs || []).join('\n') + '\n\n<span class="error"> ERROR: ' + result.error + '</span>\n';
                 }
 
             } catch (error) {
